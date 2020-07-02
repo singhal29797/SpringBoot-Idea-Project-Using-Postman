@@ -35,7 +35,24 @@ public class IdeaServiceController {
 
     @GetMapping
     public ResponseEntity<List<IdeaDTO>> getAllIdeas(){
-        return new ResponseEntity<>(ideaService.getAllIdea(), HttpStatus.CREATED);
+        return new ResponseEntity<>(ideaService.getAllIdea(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<IdeaDTO> getIdea(@PathVariable(name = "id") long movieId){
+        return new ResponseEntity<>(ideaService.getIdea(movieId), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<IdeaDTO> updateIdea(@PathVariable(name = "id") long movieId, @RequestBody IdeaDTO ideaDTO){
+        ideaService.updateIdea(ideaDTO);
+        return new ResponseEntity<>(ideaDTO, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<IdeaDTO> deleteIdea (@PathVariable(name = "id") long movieId){
+        ideaService.deleteIdea(movieId);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
 }
